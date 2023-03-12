@@ -1,0 +1,1 @@
+<form action="traitement/signup.php" method="post"></form>
