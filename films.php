@@ -81,7 +81,7 @@
 
 <!--LASTREALESE-->
 <div class="w-full  pl-5 flex text-">
-    <h2>Prochaine Sortie</h2>
+    <h2>Les plus récents</h2>
 </div>
 <!--/LASTREALESE-->
 

@@ -9,12 +9,10 @@
     <link rel="stylesheet" href="assets/css/reset.css">
 <!-- /RESET CSS -->
 
-<!-- FONT -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 <!--/FONT -->
 
 <!-- TAILWIND CND -->
@@ -69,10 +67,11 @@
 </head>
 <body class="w-full h-screen flex flex-col bg-violet">
 
+<!--TOP-->
 <div class="w-full h-full flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-8 left-10">
-        <a href="index.php">
+        <a href="profil.php">
             <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5 25.4619L14.0225 27.125L0.5 14L14.0225 0.875L15.5 2.53812L3.69125 14L15.5 25.4619Z" fill="white"/>
             </svg>
@@ -81,30 +80,22 @@
     <!--/RETOUR-->
     <!-- TITLE -->
     <div class="flex-col  items-center text-center font-bold font-sans text-white text-4xl">
-        <h1 class="mt-4">Pseudo</h1>
+        <h1 class="mt-4">Avatar</h1>
         <?php include('content/ligncenter.php')?>
     </div>
     <!-- /TITLE -->
-    <p class="text-xl my-7 font-body font-normal text-white flex justify-evenly items-center "> Vous êtes connectés mais ne vous souvenez pas de votre mot de passe ? Aucun soucis !</p>
 
-    <a href="#">
-            <div class="font-ligth
-             text-3xl w-32 py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5 mt-0.5" >
-                
-                <div class="flex items-center"> 
-                <svg> </svg>
+    <img src="assets/img/avatar.png" alt="image d'avatar" class="w-48 h-48 my-7 mx-auto rounded-big">
 
+    <div class="mx-auto inline-grid grid-cols-2 gap-2">
+        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
+        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big ">
+        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big ">
+        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
+    </div>
 
-                <h2 class="mx-3">Mot de passe perdu</h2>
-                </div>
-                
-                <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 1.66312L1.4775 0L15 13.125L1.4775 26.25L0 24.5869L11.8088 13.125L0 1.66312Z" fill="white"/>
-                </svg>
-            
-            </div>
-        </a>
-
+    <button class="bg-mauve text-white font-sans text-3xl font-semibold  px-10 py-1.5 rounded-big mt-10">Enregistrer</button>
+<!--TOP-->
 </div>
 </body>
 </html>

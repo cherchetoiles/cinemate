@@ -1,1 +1,1 @@
-<?php $db=new PDO('mysql:host=localhost; dbmane= ','root','root')?>
+<?php $db=new PDO('mysql:host=localhost; dbmane=allosimplon','root','root')?>

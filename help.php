@@ -5,19 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- FAVICON -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="a" rel="apple-touch-icon">
-<!-- /FAVICON -->
-
 <!-- RESET CSS -->
     <link rel="stylesheet" href="assets/css/reset.css">
 <!-- /RESET CSS -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 <!--/FONT -->
 
 <!-- TAILWIND CND -->
@@ -39,9 +36,10 @@
             },
             fontFamily: {
                 'sans': ['"League Spartan"', 'sans-serif'],
-                'body': ['"Roboto"'],
+                'body': ['"Roboto"','sans-serif'],
             },
             fontSize: {
+                'lt':'0.75',
                 sm: '0.875rem',
                 base: '1rem',
                 xl: '1.125rem',
@@ -56,7 +54,7 @@
                 'sm': '0.25rem',
                 'md': '0.5rem',
                 'lg': '0.625rem',
-                'big': '0.75px',
+                'big': '0.75rem',
             },
         }
         }
@@ -66,30 +64,28 @@
 
 
 
-    <title>Allosimplon</title>
+    <title>AllosimplonParamètres</title>
 
 </head>
-<body class="bg-violet">
+<body class="w-full h-screen flex flex-col bg-violet">
 
-<!-- NAVABAR -->
-<?php include ('content/navbar.php') ?>
-<!-- /NAVABAR -->
-
-<!--HEADER SLIDER-->
-<?php include ('content/slider/homeslider.php')?>
-<!--/HEADER SLIDER-->
-
-<!--LASTREALESE-->
-<div class="w-full  pl-5 flex text-">
-    <h2>Prochaine Sortie</h2>
-</div>
-<!--/LASTREALESE-->
-
-<!-- FOOTER -->
-<?php include ('content/footer.php') ?>
-<!-- /FOOTER -->
-
-<script src="assets/js/slider.js"></script>
+<div class="w-full h-full flex flex-col items-center">
+    <!--RETOUR-->
+    <div class="absolute top-8 left-10">
+        <a href="profil.php">
+            <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.5 25.4619L14.0225 27.125L0.5 14L14.0225 0.875L15.5 2.53812L3.69125 14L15.5 25.4619Z" fill="white"/>
+            </svg>
+        </a>
+    </div>
+    <!--/RETOUR-->
+    <!-- TITLE -->
+    <div class="flex-col items-center justify-center text-center font-bold font-sans text-white text-4xl">
+        <h1 class="mt-4">Assitances</h1>
+        <?php include('content/ligncenter.php')?>
+    </div>
+    <!-- /TITLE -->    
+    
 
 </body>
 </html>

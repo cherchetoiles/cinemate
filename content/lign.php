@@ -1,0 +1,1 @@
+<hr class="h-0.5 w-28 rounded-r-full bg-mauve mb-2 ml-2">
