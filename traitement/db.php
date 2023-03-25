@@ -1,1 +1,0 @@
-<?php $db=new PDO('mysql:host=localhost; dbmane=allosimplon','root','root')?>

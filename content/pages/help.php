@@ -1,3 +1,7 @@
+<?php
+session_start();
+if(isset($_SESSION['id_user'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +68,7 @@
 
 
 
-    <title>AllosimplonProfil</title>
+    <title>AllosimplonParamètres</title>
 
 </head>
 <body class="w-full h-screen flex flex-col bg-violet">
@@ -72,7 +76,7 @@
 <div class="w-full h-full flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-8 left-10">
-        <a href="index.php">
+        <a href="../../profil.php">
             <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5 25.4619L14.0225 27.125L0.5 14L14.0225 0.875L15.5 2.53812L3.69125 14L15.5 25.4619Z" fill="white"/>
             </svg>
@@ -80,11 +84,18 @@
     </div>
     <!--/RETOUR-->
     <!-- TITLE -->
-    <div class="flex-col  items-center text-center font-bold font-sans text-white text-4xl">
-        <h1 class="mt-4">Contact</h1>
-        <?php include('content/ligncenter.php')?>
+    <div class="flex-col items-center justify-center text-center font-bold font-sans text-white text-4xl">
+        <h1 class="mt-4">Assitances</h1>
+        <?php include('../ligncenter.php')?>
     </div>
-    <!-- /TITLE -->
-</div>
+    <!-- /TITLE --> 
+    
+    
+
 </body>
 </html>
+<?php
+  }else{
+    header('Location: index.php');
+  }
+?>

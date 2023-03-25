@@ -1,3 +1,7 @@
+<?php
+session_start();
+if(isset($_SESSION['id_user'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +75,7 @@
 <div class="w-full h-full flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-8 left-10">
-        <a href="profil.php">
+        <a href="../../profil.php">
             <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5 25.4619L14.0225 27.125L0.5 14L14.0225 0.875L15.5 2.53812L3.69125 14L15.5 25.4619Z" fill="white"/>
             </svg>
@@ -79,23 +83,39 @@
     </div>
     <!--/RETOUR-->
     <!-- TITLE -->
-    <div class="flex-col  items-center text-center font-bold font-sans text-white text-4xl">
-        <h1 class="mt-4">Avatar</h1>
-        <?php include('content/ligncenter.php')?>
+    <div class="flex-col  items-center text-center font-bold font-sans text-white mb-8 text-4xl">
+        <h1 class="mt-4">Ma liste</h1>
+        <?php include('../ligncenter.php')?>
     </div>
     <!-- /TITLE -->
 
-    <img src="assets/img/avatar.png" alt="image d'avatar" class="w-48 h-48 my-7 mx-auto rounded-big">
+    <?php
+    require ('../../traitement/bdd.php');
+    $id_user = $_GET['id_user'];
+    $req = 'SELECT * FROM preferer p JOIN film f ON p.id_film = f.id_film WHERE id_user=? ';
+    $req = $db->prepare($req);
+    $req->execute([$id_user]);
+    $result = $req->fetchAll();
 
-    <div class="mx-auto inline-grid grid-cols-2 gap-2">
-        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
-        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big ">
-        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big ">
-        <img src="assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
+    $films = $result;
+
+    foreach($films as $film){
+
+    ?>
+    <div class="mx-auto inline-grid grid-cols-3 gap-auto md:grid-cols-10">
+    <a href="../../film.php?id_film=<?= $film['id_film']?>" class="px-1.5 py-1.5">
+    <img src="<?= $film['img_film']?>" class="w-28 h-auto rounded-big" alt="">
+    </a>
+    
     </div>
-
-    <button class="bg-mauve text-white font-sans text-3xl font-semibold  px-10 py-1.5 rounded-big mt-10">Enregistrer</button>
-<!--TOP-->
+        <?php
+    }
+        ?>
 </div>
 </body>
 </html>
+<?php
+  }else{
+    header('Location: index.php');
+  }
+?>

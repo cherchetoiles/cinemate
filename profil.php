@@ -1,3 +1,7 @@
+<?php
+session_start();
+if(isset($_SESSION['id_user'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +43,7 @@
                 'body': ['"Roboto"','sans-serif'],
             },
             fontSize: {
-                'lt':'0.75',
+                'lt':'0.75rem',
                 sm: '0.875rem',
                 base: '1rem',
                 xl: '1.125rem',
@@ -69,6 +73,18 @@
 </head>
 <body class="w-full h-screen flex flex-col bg-violet">
 
+ <!-- BDD -->
+ <?php
+require ('traitement/bdd.php');
+$req = 'SELECT*FROM user WHERE id_user = ?';
+$req = $db->prepare($req);
+$req->execute([$_SESSION['id_user']]);
+$result = $req->fetch();
+$user = $result;
+
+?>
+ <!-- BDD -->
+
 <div class="w-full h-full flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-8 left-10">
@@ -81,18 +97,18 @@
     <!--/RETOUR-->
     <!-- TITLE -->
     <div class="flex-col  items-center text-center font-bold font-sans text-white text-4xl">
-        <h1 class="mt-4">Pseudo</h1>
+        <h1 class="mt-4 capitalize"><?=$user['pseudo']?></h1>
         <?php include('content/ligncenter.php')?>
     </div>
     <!-- /TITLE -->
 
     <img src="assets/img/avatar.png" alt="image d'avatar" class="w-48 h-48 mx-auto mt-7 mb-4 rounded-big">
     
-    <a href="avatar.php"><p class="text-xl font-body font-normal text-white flex justify-evenly items-center "> Modifier</p></a>
+    <a href="content/pages/avatar.php"><p class="text-xl font-body font-normal text-white flex justify-evenly items-center "> Modifier</p></a>
 
     <div class="flex w-auto mt-10 flex-col">
-        <a href="#">
-            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5" >
+        <a href="content/pages/myfavorite.php?id_user=<?= $user['id_user']?>">
+            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5" >
                 
                 <div class="flex items-center"> 
                     <svg width="27" height="20" viewBox="0 0 27 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,8 +124,8 @@
             
             </div>
         </a>
-        <a href="setting.php">
-            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5 mt-0.5" >
+        <a href="content/pages/setting.php">
+            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5 mt-0.5" >
                 
                 <div class="flex items-center"> 
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -125,8 +141,8 @@
             
             </div>
         </a>
-        <a href="help.php">
-            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5 mt-0.5" >
+        <a href="content/pages/help.php">
+            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5 mt-0.5" >
                 
                 <div class="flex items-center"> 
                 <svg width="29" height="29" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,9 +162,14 @@
     </div>
 
     <div class="text-sm font-body text-white absolute items-center bottom-10 ">
-    <a href="#"><p>Se déconnecter</p></a>
+    <a href="traitement/logout.php"><p>Se déconnecter</p></a>
     </div>
 
 </div>
 </body>
 </html>
+<?php
+  }else{
+    header('Location: index.php');
+  }
+?>

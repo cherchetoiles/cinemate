@@ -1,3 +1,7 @@
+<?php
+session_start();
+if(isset($_SESSION['id_user'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +13,10 @@
     <link rel="stylesheet" href="assets/css/reset.css">
 <!-- /RESET CSS -->
 
-<!-- FONT -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 <!--/FONT -->
 
 <!-- TAILWIND CND -->
@@ -64,15 +66,16 @@
 
 
 
-    <title>AllosimplonParamètres</title>
+    <title>AllosimplonProfil</title>
 
 </head>
 <body class="w-full h-screen flex flex-col bg-violet">
 
+<!--TOP-->
 <div class="w-full h-full flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-8 left-10">
-        <a href="profil.php">
+        <a href="../../profil.php">
             <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5 25.4619L14.0225 27.125L0.5 14L14.0225 0.875L15.5 2.53812L3.69125 14L15.5 25.4619Z" fill="white"/>
             </svg>
@@ -80,12 +83,29 @@
     </div>
     <!--/RETOUR-->
     <!-- TITLE -->
-    <div class="flex-col items-center justify-center text-center font-bold font-sans text-white text-4xl">
-        <h1 class="mt-4">Assitances</h1>
-        <?php include('content/ligncenter.php')?>
+    <div class="flex-col  items-center text-center font-bold font-sans text-white text-4xl">
+        <h1 class="mt-4">Avatar</h1>
+        <?php include('../ligncenter.php')?>
     </div>
-    <!-- /TITLE -->    
+    <!-- /TITLE -->
+
+    <img src="../../assets/img/avatar.png" alt="image d'avatar" class="w-48 h-48 my-7 mx-auto rounded-big">
     
 
+    <form class="mx-auto grid grid-cols-2 grid-rows-2">
+    <input type="image" id="avatar1" name="avatar1" src="../../assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
+    <input type="image" id="avatar-2" name="avatar-2" src="../../assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
+    <input type="image" id="avatar-3" name="avatar-3" src="../../assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
+    <input type="image" id="avatar-4" name="avatar-4" src="../../assets/img/avatar.png" alt="image d'avatar" class="w-36 h-36 mx-1.5 my-4 rounded-big">
+    </form>
+
+
+<!--TOP-->
+</div>
 </body>
 </html>
+<?php
+  }else{
+    header('Location: index.php');
+  }
+?>
