@@ -1,3 +1,7 @@
+<?php
+session_start();
+$id_session = session_id();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +27,10 @@
 <!-- TAILWIND CND -->
     <script src="https://cdn.tailwindcss.com"></script>
 <!-- /TAILWIND CND -->
+
+<!--DAISYUI-->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.4/dist/full.css" rel="stylesheet" type="text/css" />
+<!--/DAISYUI-->
 
 <!-- TAILWIND CONFIG -->
     <script>
@@ -75,21 +83,24 @@
 <?php include ('content/navbar.php') ?>
 <!-- /NAVABAR -->
 
-<!--HEADER SLIDER-->
-<?php include ('content/slider/homeslider.php')?>
-<!--/HEADER SLIDER-->
+<!--SOON-->
+<?php include ('content/slider/slidersoon.php')?>
+<!--/SOON-->
 
-<!--LASTREALESE-->
-<div class="w-full  pl-5 flex text-">
-    <h2>Les plus récents</h2>
-</div>
-<!--/LASTREALESE-->
+<!--NOW-->
+<?php include ('content/slider/slidernow.php')?>
+<!--/NOW-->
+
+<!--ALL-->
+<?php include ('content/slider/sliderall.php')?>
+<!--/ALL-->
 
 <!-- FOOTER -->
 <?php include ('content/footer.php') ?>
 <!-- /FOOTER -->
-
-<script src="assets/js/slider.js"></script>
-
 </body>
+
+<!--CATEGORYMODAL-->
+<?php include('content/modals.php') ?>
+<!--C/ATEGORYMODAL-->
 </html>

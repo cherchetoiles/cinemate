@@ -1,3 +1,7 @@
+<?php
+session_start();
+if(isset($_SESSION['id_user'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,7 +76,7 @@
 <div class="w-full h-full flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-8 left-10">
-        <a href="profil.php">
+        <a href="../../profil.php">
             <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5 25.4619L14.0225 27.125L0.5 14L14.0225 0.875L15.5 2.53812L3.69125 14L15.5 25.4619Z" fill="white"/>
             </svg>
@@ -82,9 +86,20 @@
     <!-- TITLE -->
     <div class="flex-col  items-center text-center font-bold font-sans text-white text-4xl">
         <h1 class="mt-4">Paramètres</h1>
-        <?php include('content/ligncenter.php')?>
+        <?php include('../ligncenter.php')?>
     </div>
     <!-- /TITLE -->    
+     <!-- BDD -->
+ <?php
+require ('../../traitement/bdd.php');
+$req = 'SELECT*FROM user WHERE id_user = ?';
+$req = $db->prepare($req);
+$req->execute([$_SESSION['id_user']]);
+$result = $req->fetch();
+$user = $result;
+
+?>
+ <!-- BDD -->
 
     <div class="flex w-auto mt-10 flex-col">
         <a href="#">
@@ -96,18 +111,17 @@
                     <path d="M21.6641 19.5C21.6668 19.3221 21.6668 19.1414 21.6668 18.9583C21.6668 16.2659 17.7866 14.0833 13.0002 14.0833C8.21369 14.0833 4.3335 16.2659 4.3335 18.9583C4.3335 21.6507 4.3335 23.8333 13.0002 23.8333C15.4171 23.8333 17.16 23.6636 18.4168 23.3604" stroke="white" stroke-linecap="round"/>
                 </svg>
 
-                    <h2 class="mx-3">Pseudo</h2>
+                    <h2 class="mx-3 capitalize"><?=$user['pseudo'] ?></h2>
                 </div>
                 
                 <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20.0572 1.69746C19.7544 1.42109 19.3949 1.20245 18.9994 1.05417C18.6039 0.905891 18.1803 0.830912 17.753 0.833564C17.3257 0.836216 16.9032 0.916445 16.51 1.06962C16.1167 1.22279 15.7605 1.44587 15.4618 1.72598L2.57329 13.5404L1 19.1666L7.13759 17.7236L20.0261 5.90911C20.3317 5.63545 20.5752 5.30896 20.7423 4.94853C20.9095 4.5881 20.997 4.20087 20.9999 3.80923C21.0028 3.41759 20.921 3.02931 20.7592 2.66684C20.5974 2.30436 20.3588 1.97489 20.0572 1.69746V1.69746Z" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M15.0938 2.06409L19.6572 6.24722" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M2.57422 13.5396L7.14208 17.7194" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
-            
+                    <path d="M20.0572 1.69746C19.7544 1.42109 19.3949 1.20245 18.9994 1.05417C18.6039 0.905891 18.1803 0.830912 17.753 0.833564C17.3257 0.836216 16.9032 0.916445 16.51 1.06962C16.1167 1.22279 15.7605 1.44587 15.4618 1.72598L2.57329 13.5404L1 19.1666L7.13759 17.7236L20.0261 5.90911C20.3317 5.63545 20.5752 5.30896 20.7423 4.94853C20.9095 4.5881 20.997 4.20087 20.9999 3.80923C21.0028 3.41759 20.921 3.02931 20.7592 2.66684C20.5974 2.30436 20.3588 1.97489 20.0572 1.69746V1.69746Z" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15.0938 2.06409L19.6572 6.24722" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.57422 13.5396L7.14208 17.7194" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </div>
         </a>
+
         <a href="#">
             <div class="font-normal text-2xl w-[22rem] py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5 mt-0.5" >
                 
@@ -117,7 +131,7 @@
                     <path d="M23.6667 7.70833C23.6667 6.99004 23.3813 6.30116 22.8734 5.79325C22.3655 5.28534 21.6766 5 20.9583 5H4.70833C3.99004 5 3.30116 5.28534 2.79325 5.79325C2.28534 6.30116 2 6.99004 2 7.70833L11.3979 13.5764C11.8284 13.8454 12.3257 13.9881 12.8333 13.9881C13.3409 13.9881 13.8383 13.8454 14.2687 13.5764L23.6667 7.70833Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
-                <h2 class="mx-3">lebouffonvert@bouffon.fr</h2>
+                <h2 class="mx-3"><?=$user['email'] ?></h2>
                 </div>
                 
                 <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,7 +140,7 @@
                     <path d="M2.57422 13.5396L7.14208 17.7194" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
-            
+
             </div>
         </a>
         <a href="#">
@@ -139,7 +153,7 @@
                 </svg>
 
 
-                <h2 class="mx-3">Mot de passe</h2>
+                <h2 class="mx-3">...........</h2>
                 </div>
                 
                 <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,3 +199,8 @@
 </div>
 </body>
 </html>
+<?php
+  }else{
+    header('Location: index.php');
+  }
+?>

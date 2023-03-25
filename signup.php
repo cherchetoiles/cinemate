@@ -19,6 +19,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 <!-- /TAILWIND CND -->
 
+<!--DAISYUI-->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.4/dist/full.css" rel="stylesheet" type="text/css" />
+<!--/DAISYUI-->
+
 <!-- TAILWIND CONFIG -->
     <script>
         tailwind.config = {
@@ -65,13 +69,13 @@
     <title>Allosimplon</title>
 
 </head>
-<body class="w-full h-screen flex flex-col bg-violet">
+<body class="w-full h-screen flex flex-col bg-[url('assets/img/bgform2.png')] bg-cover bg-center">
 
 <!--TOP-->
-<div class="w-full h-full flex flex-col items-center">
+<div class="flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-6 left-10">
-        <a href="index.php">
+        <a href="login.php">
             <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5 25.4619L14.0225 27.125L0.5 14L14.0225 0.875L15.5 2.53812L3.69125 14L15.5 25.4619Z" fill="white"/>
             </svg>
@@ -79,7 +83,7 @@
     </div>
     <!--/RETOUR-->
     <!-- TITLE -->
-    <div class="flex-col  items-center font-bold font-sans text-white text-3xl">
+    <div class="flex-col  items-center font-bold font-sans text-white text-4xl">
         <h1 class="mt-4">Inscription</h1>
         <?php include('content/ligncenter.php')?>
     </div>
@@ -92,7 +96,7 @@
 <!--BOTTOM-->
 <div class="h-auto fixed bottom-0 left-0 right-0 py-5">
     <div class="text-sm font-body text-white flex justify-evenly h-full items-center ">
-        <p>Déja inscript ? <a class="font-bold" href="login.php">Connectez-vous !</a></p>
+        <p>Déja inscrit ?<a class="font-bold" href="login.php"> Connectez-vous !</a></p>
     </div>
 </div>
 <!--/BOTTOM-->

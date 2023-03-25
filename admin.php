@@ -1,3 +1,7 @@
+<?php
+session_start();
+if(isset($_SESSION['id_user'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +24,10 @@
 <!-- TAILWIND CND -->
     <script src="https://cdn.tailwindcss.com"></script>
 <!-- /TAILWIND CND -->
+
+<!--DAISYUI-->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.4/dist/full.css" rel="stylesheet" type="text/css" />
+<!--/DAISYUI-->
 
 <!-- TAILWIND CONFIG -->
     <script>
@@ -70,11 +78,12 @@
 <body class="w-full h-screen flex flex-col bg-violet">
 
 <?php include('content/navbar.php')?>
-<div class="w-full h-full flex flex-col mt-20 items-center">
+<div class="w-full h-full flex flex-col pt-20 items-center bg-violet">
 
     <div class="flex w-auto mt-10 flex-col">
-        <a href="#">
-            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5" >
+
+        <a href="user.php" class="cursor-pointer">
+            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5" >
                 
                 <div class="flex items-center"> 
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -90,13 +99,13 @@
                 </div>
                 
                 <svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 1.66312L1.4775 0L15 13.125L1.4775 26.25L0 24.5869L11.8088 13.125L0 1.66312Z" fill="white"/>
+                    <path d="M0 1.66312L1.4775 0L15 13.125L1.4775 26.25L0 24.5869L11.8088 13.125L0 1.66312Z" fill="white"/>
                 </svg>
-            
             </div>
         </a>
+        
         <a href="#">
-            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5 mt-0.5" >
+            <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5 mt-0.5" >
                 
                 <div class="flex items-center"> 
                 <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +129,7 @@
         </a>
         <a href="#">
             <div class="font-ligth
-             text-3xl w-[22rem] py-4 text-white flex bg-violettrans rounded-md justify-between items-center px-5 mt-0.5" >
+             text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5 mt-0.5" >
                 
                 <div class="flex items-center"> 
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -149,6 +158,13 @@
 <!-- FOOTER -->
 <?php include ('content/footer.php') ?>
 <!-- /FOOTER -->
-
 </body>
 </html>
+<!--MODAL-->
+<?php include('content/modals.php')?>
+<!--MODAL-->
+
+<?php }
+else{
+    header(Location:"login.php");
+} ?>

@@ -1,7 +1,3 @@
-<?php
-session_start();
-$id_session = session_id();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,17 +17,12 @@ $id_session = session_id();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!--/FONT -->
 
 <!-- TAILWIND CND -->
     <script src="https://cdn.tailwindcss.com"></script>
 <!-- /TAILWIND CND -->
-
-<!--DAISYUI-->
-<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.4/dist/full.css" rel="stylesheet" type="text/css" />
-<!--/DAISYUI-->
 
 <!-- TAILWIND CONFIG -->
     <script>
@@ -78,24 +69,13 @@ $id_session = session_id();
     <title>Allosimplon</title>
 
 </head>
-<body class="bg-violet">
+<body>
+<div class="w-12 h-auto">
+    <svg xclass="animate-spin" style="enable-background:new 0 0 24 24;" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
+	    .st0{opacity:0.2;fill:none;stroke:#000000;stroke-width:5.000000e-02;stroke-miterlimit:10;}
+    </style><g id="grid_system"/><g id="_icons"><g><circle cx="12" cy="4" r="1"/><ellipse cx="16" cy="5.1" rx="1" ry="1" transform="matrix(0.5 -0.866 0.866 0.5 3.6077 16.3923)"/><ellipse cx="18.9" cy="8" rx="1" ry="1" transform="matrix(0.866 -0.5 0.5 0.866 -1.4641 10.5359)"/><circle cx="20" cy="12" r="1"/><ellipse cx="18.9" cy="16" rx="1" ry="1" transform="matrix(0.5 -0.866 0.866 0.5 -4.3923 24.3923)"/><ellipse cx="16" cy="18.9" rx="1" ry="1" transform="matrix(0.866 -0.5 0.5 0.866 -7.3205 10.5359)"/><circle cx="12" cy="20" r="1"/><ellipse cx="8" cy="18.9" rx="1" ry="1" transform="matrix(0.5 -0.866 0.866 0.5 -12.3923 16.3923)"/><ellipse cx="5.1" cy="16" rx="1" ry="1" transform="matrix(0.866 -0.5 0.5 0.866 -7.3205 4.6795)"/><circle cx="4" cy="12" r="1"/><ellipse cx="5.1" cy="8" rx="1" ry="1" transform="matrix(0.5 -0.866 0.866 0.5 -4.3923 8.3923)"/></g></g></svg>
+</div>
 
-<!-- NAVABAR -->
-<?php include ('content/navbar.php') ?>
-<!-- /NAVABAR -->
 
-<!--LASTREALESE-->
-<?php include ('content/slider/slidercard.php')?>
-<!--/LASTREALESE-->
-
-<!-- FOOTER -->
-<?php include ('content/footer.php') ?>
-<!-- /FOOTER -->
 </body>
-
-
-<!--CATEGORYMODAL-->
-<?php include('content/modals.php') ?>
-<!--C/ATEGORYMODAL-->
-
 </html>
