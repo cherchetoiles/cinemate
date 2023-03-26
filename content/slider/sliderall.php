@@ -1,8 +1,6 @@
 <?php
 require ('traitement/bdd.php');
-$sql = 'SELECT * FROM film WHERE last_date < CURDATE();
-;';
-// ATTENTION LIMIT
+$sql = 'SELECT * FROM film WHERE last_date < CURDATE()';
 $result = $db->prepare($sql);
 $result->execute();
 
@@ -15,7 +13,7 @@ $result->execute();
     <?php foreach($result->fetchAll() as $film){?>
 
     <div class="flex-col items-center font-bold font-sans text-white  text-3xl ml-12">
-        <h3 class="mt-4 "></h3>
+        <h3 class="mt-4 ">catégorie</h3>
         <?php include('content//lign.php')?>
     </div>
             
