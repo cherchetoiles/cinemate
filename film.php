@@ -1,6 +1,5 @@
 <?php
 session_start();
-$id_session = session_id();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,6 +93,7 @@ $req->execute([$id_film]);
 $result = $req->fetch();
 $film = $result;
 
+
 ?>
 <!-- /REQUEST BDD -->
 <div class="w-full h-screen flex flex-col items-center">
@@ -109,7 +109,7 @@ $film = $result;
 
     <!--FAVORITE-->
     <div class="z-2 absolute top-6 right-8">
-            <a href="#">
+            <a href="traitement/favoris.php?id_film=<?= $id_film ?>">
                 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19.1666 30.6667H5.74996" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
                     <path d="M17.25 21.0833H5.75" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
