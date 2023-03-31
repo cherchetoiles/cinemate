@@ -24,6 +24,8 @@ if(isset($_SESSION['id_role']))
 
 <!-- TAILWIND CND -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/tailwind.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.5.1/tailwind.min.css">
 <!-- /TAILWIND CND -->
 
 <!--DAISYUI-->
@@ -73,13 +75,13 @@ if(isset($_SESSION['id_role']))
 
 
 
-    <title>AllosimplonProfil</title>
+    <title>AllosimplonAdminArtistes</title>
 
 </head>
-<body class="w-full h-auto flex flex-col bg-violet pb-16">
+<body class="w-full h-auto flex flex-col bg-violet">
 
 
-<div class="w-full h-screen bg-violet flex flex-col items-center">
+<div class="w-full h-full flex flex-col items-center">
     <!--RETOUR-->
     <div class="absolute top-8 left-10">
         <a href="admin.php">
@@ -91,52 +93,56 @@ if(isset($_SESSION['id_role']))
     <!--/RETOUR-->
     <!-- TITLE -->
     <div class="flex-col  items-center text-center font-bold font-sans text-white text-4xl">
-        <h1 class="mt-4 capitalize" id="user">Utilisateurs</h1>
+        <h1 class="mt-4 capitalize">Artistes</h1>
         <?php include('content/ligncenter.php')?>
     </div>
     <!-- /TITLE -->
     
     <!-- CREATE -->
-    <div class="flex mb-2 justify-end justify-items-end text-end mr-14 text-white font-sans text-xl font-bold w-full h-auto">    
-        <label for="my-modal-8" class="cursor-pointer">    
-            <div class="px-6  py-1 bg-violettrans/50 flex items-center rounded-sm my-3">
-                Ajouter        
-            </div>
+    <div class="flex mb-2 justify-end justify-items-end text-end mr-14 text-white font-sans text-xl font-bold w-full h-auto">
+        <label for="my-modal-56" class="cursor-pointer">
+            <div class="px-6  py-1 bg-violettrans/50 flex items-center rounded-sm my-3">Ajouter</div>
         </label>
     </div>
    <!-- /CREATE -->
    
    <?php
     require ('traitement/bdd.php');
-    $sql = "SELECT * FROM `user` u JOIN `graduer` g ON u.id_user = g.id_user";  
+    $sql = "SELECT *, GROUP_CONCAT(a.id_artiste) FROM `artiste` a 
+    JOIN `specialite` s ON a.id_artiste = s.id_artiste
+    JOIN `job` j ON j.id_job = s.id_job 
+    GROUP BY(a.id_artiste)";  
+    $req = $db->prepare($sql);
+    $req->execute();
+    // SQL REQUEST
+    $sql = "SELECT * FROM `job`";
     $result = $db->prepare($sql);
     $result->execute();
-    // SQL REQUEST
     ?>
     
    
-    <div class="sm:grid grid-cols-2 sm:grid-rows-2 md:grid-cols-3 md:grids-rows-3 h-auto bg-violet ">
+    <div class="grid grid-cols-2 sm:grid-cols-7 sm:grid-rows-3">
 
     <?php
-    foreach($result->fetchAll() as $user){
+    foreach( $req->fetchAll() as $artiste){
         ?>
 
-     <!--USER CARD-->
+     <!--ARTISTE CARD-->
     
-    <div class="m-4 w-96 h-auto py-4 text-white flex bg-violettrans/50 rounded-big  items-center px-3 justify-center align-middle" >
+    <div class="m-4 py-4 text-white flex flex-col bg-violettrans/50 rounded-big  mx-6 items-center px-3 justify-center align-middle" >   
+         
+    <!-- PHOTO AND ROLE -->
+        <div class="flex flex-col justify-center items-center w-auto h-auto text-center mx-1 object-cover">
+            <h6 class="text-2xl font-bold font-sans text-white mb-1 "><?=  $artiste['name_job']?></h6>
+            <div alt="image artiste"  class="w-24 h-24 bg-auto rounded-big bg-[url('<?= $artiste['img_artiste']?>')] bg-cover"></div>
+            <h6 class="text-2xl font-bold font-sans text-white my-1"><?= $artiste['nom']?></h6>
+            <p class="text-base font-regulard font-body mt-[-10px]"><?= $artiste['prenom']?></p>
+        </div>      
         <!-- PHOTO AND ROLE -->
-        <div class="flex flex-col text-center mx-1 mt-2">
-            <img src="assets/img/avatar.png" alt="image d'avatar" class="w-40 h-40  rounded-big">
-            <h6 class="text-4xl font-bold font-sans text-white mt-1"><?= $user['pseudo']?></h6>
-            <p class="text-base font-regulard font-body mt-[-10px]"><?= 'bip'?></p>
-        </div>        
-        <!-- PHOTO AND ROLE -->
-
-        <div class="flex flex-col h-full ml-4 pt-4">
-            <!-- <div>BUTTON MAGIC</div> -->            
-            <div class="flex flew-row mr-2 mb-6 justify-end">
-                <label for="my-modal-33" class="cursor-pointer">
-                    <!-- MODIFIE -->
+        <!-- BUTTON MAGIC -->            
+        <div class="flex flew-row w-full justify-center my-1">
+                <!-- MODIFIE -->
+                <label for="my-modal-30" class="cursor-pointer">
                         <div class="bg-mauve rounded-sm px-2.5 py-1 mr-0.5">
                             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.04167 4.83289L4.29123 2.08245C3.68129 1.47252 2.69239 1.47252 2.08245 2.08245C1.47252 2.69239 1.47252 3.68129 2.08245 4.29123L8.70877 10.9175C9.31871 11.5275 10.3076 11.5275 10.9175 10.9175C11.5275 10.3076 11.5275 9.31871 10.9175 8.70877L9.25044 7.04167" stroke="white" stroke-linecap="round"/>
@@ -148,8 +154,10 @@ if(isset($_SESSION['id_role']))
                         </div>
                 </label>
                 <!--/MODIFIE -->
+
+                
                 <!-- DELETE -->
-                <label for="my-modal-2" class="cursor-pointer">
+                <label for="my-modal" class="cursor-pointer">
                     <div class="bg-mauve rounded-sm px-2.5 py-1" id="delate-button">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11.9582 3.5H2.0415" stroke="white" stroke-linecap="round"/>
@@ -159,53 +167,22 @@ if(isset($_SESSION['id_role']))
                             <path d="M10.7181 8.98283C10.6148 10.5315 10.5632 11.3059 10.0586 11.7779C9.55404 12.25 8.77797 12.25 7.22584 12.25H6.77471C5.22257 12.25 4.44651 12.25 3.94192 11.7779C3.43733 11.3059 3.38571 10.5315 3.28246 8.98283L3.01416 4.95834M10.9864 4.95834L10.8697 6.70834" stroke="white" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <!-- DELETE -->
                 </label>
-            </div>
-
-            
-            <!-- /<div>BUTTON MAGIC</div> -->
-
-            <div class="flex flex-col h2/3">
-                <div class="flex my-1.5 items-center"> 
-                    <svg width="16" height="16" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M23.6667 7.70837V18.5417C23.6667 19.26 23.3813 19.9489 22.8734 20.4568C22.3655 20.9647 21.6766 21.25 20.9583 21.25H4.70833C3.99004 21.25 3.30116 20.9647 2.79325 20.4568C2.28534 19.9489 2 19.26 2 18.5417V7.70837" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M23.6667 7.70833C23.6667 6.99004 23.3813 6.30116 22.8734 5.79325C22.3655 5.28534 21.6766 5 20.9583 5H4.70833C3.99004 5 3.30116 5.28534 2.79325 5.79325C2.28534 6.30116 2 6.99004 2 7.70833L11.3979 13.5764C11.8284 13.8454 12.3257 13.9881 12.8333 13.9881C13.3409 13.9881 13.8383 13.8454 14.2687 13.5764L23.6667 7.70833Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <p class="mx-2 text-base"><?= $user['email']?></p>
-                </div>
-                <div class="flex my-1.5 items-center"> 
-                    <svg width="16" height="16" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.4167 9.90112H7.58333C6.08756 9.90112 4.875 11.1137 4.875 12.6095V20.7345C4.875 22.2302 6.08756 23.4428 7.58333 23.4428H18.4167C19.9124 23.4428 21.125 22.2302 21.125 20.7345V12.6095C21.125 11.1137 19.9124 9.90112 18.4167 9.90112Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M13.0002 1.77612C11.5636 1.77612 10.1858 2.34681 9.17 3.36263C8.15418 4.37845 7.5835 5.7562 7.5835 7.19279V9.90112H18.4168V7.19279C18.4168 5.7562 17.8461 4.37845 16.8303 3.36263C15.8145 2.34681 14.4368 1.77612 13.0002 1.77612V1.77612Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-
-                    <p class="mx-2 text-base"><?='........'?></p>
-                </div>
-                <div class="flex my-1.5 items-center"> 
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.3333 20.3062C20.3333 20.6598 20.1929 20.999 19.9428 21.249C19.6928 21.4991 19.3536 21.6395 19 21.6395H4.33333C3.97971 21.6395 3.64057 21.4991 3.39052 21.249C3.14048 20.999 3 20.6598 3 20.3062V2.97286C3 2.61924 3.14048 2.2801 3.39052 2.03005C3.64057 1.78 3.97971 1.63953 4.33333 1.63953H13.7813C14.1347 1.6396 14.4736 1.77995 14.7236 2.02975L19.9431 7.2493C20.1929 7.49926 20.3333 7.83815 20.3333 8.19153V20.3062Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M10.261 7.88635L8.3659 10.4126C8.30856 10.4889 8.2355 10.5521 8.15165 10.5977C8.06781 10.6434 7.97513 10.6705 7.87989 10.6772C7.78466 10.684 7.68909 10.6702 7.59964 10.6368C7.5102 10.6034 7.42897 10.5512 7.36145 10.4837L6.33301 9.45613" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M10.261 13.8864L8.3659 16.4126C8.30856 16.4889 8.2355 16.5521 8.15165 16.5977C8.06781 16.6434 7.97513 16.6705 7.87989 16.6772C7.78466 16.684 7.68909 16.6702 7.59964 16.6368C7.5102 16.6034 7.42897 16.5512 7.36145 16.4837L6.33301 15.4552" stroke="#C684D8" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M13 10.6793H17" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M13 16.0126H17" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <p class="mx-2 text-base"><?='Adulte'?></p>
-                </div>
-            </div>
-        </div>
+                <!-- DELETE -->
+            </div>            
+            <!-- /BUTTON MAGIC -->
     </div>
-   <!-- USER CARD -->
+   <!-- ARTISTE CARD -->
    <?php
         }
     ?>
 </div>
-</div><?php include('form/delate.php')?>
-<?php include('form/user.php')?>
-<?php include('form/create.php')?>
+</div>
 
-
-
+<?php include('form/deleteartiste.php')?>
+<?php include('form/createartiste.php')?>
+<script src="assets/js/modal.js"></script>
+<script src="assets/js/deletemodal.js"></script>
 </body>
 </html>
 <?php 

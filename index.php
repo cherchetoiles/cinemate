@@ -1,6 +1,5 @@
 <?php
 session_start();
-$id_session = session_id();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +16,14 @@ $id_session = session_id();
 <!-- RESET CSS -->
     <link rel="stylesheet" href="assets/css/reset.css">
 <!-- /RESET CSS -->
+
+<!-- SLIDER CSS -->
+<link rel="stylesheet" href="assets/css/slider.css">
+<!-- /SLIDER CSS -->
+
+<!-- PARALLAX FOR STEVEN CSS -->
+<link rel="stylesheet" href="assets/css/parallax.css">
+<!-- /SLIDER CSS -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,13 +91,31 @@ $id_session = session_id();
 <?php include ('content/navbar.php') ?>
 <!-- /NAVABAR -->
 
-<!--LASTREALESE-->
+<!--HEADER SLIDER-->
+<?php include ('content/slider/homeslider.php')?>
+<!--/HEADER SLIDER-->
+
+<!--SOON-->
+<?php include ('content/slider/slidersoon.php')?>
+<!--/SOON-->
+
+<!--NOW-->
+<?php include ('content/slider/slidernow.php')?>
+<!--/NOW-->
+
+<!-- PARALLAX FOR STEVEN -->
+<?php include ('content/parallax.php') ?>
+<!-- /PARALLAX FOR STEVEN -->
+  
+<!--SOON-->
 <?php include ('content/slider/slidercard.php')?>
-<!--/LASTREALESE-->
+<!--/SOON--
 
 <!-- FOOTER -->
 <?php include ('content/footer.php') ?>
 <!-- /FOOTER -->
+
+<script src="assets/js/slider.js"></script>
 </body>
 
 

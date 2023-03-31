@@ -43,13 +43,17 @@
             <h3 class="font-sans font-bold 9 mb-3 mt-1 ml-2 text-3xl"><?='Métier'?> :</h3>
             <div class=" text-lt inline-grid grid-cols-3 font-body text-lt gap-auto mx-auto md:grid-cols-10">
                 
+            <?php foreach($artistes as $artiste)
+            { 
+              ?>
             
-            <div class="px-1.5 py-1.5 flex flex-col items-center">
-                    <img class="w-24 h-auto rounded-big" src="https://fr.web.img3.acsta.net/c_310_420/medias/nmedia/18/35/18/13/18370242.jpg" alt="spiderman">                
-                    <p><?='Preonm'?></p>
-                    <p><?='Nom'?></p>
+                <div class="px-1.5 py-1.5 flex h-auto flex-col items-center">
+                <div alt="image acteur"  class="w-24 h-auto bg-auto rounded-big bg-[url('<?= $artistes['img_artiste']?>')] bg-cover"></div>
+                    <p><<?=$artistes['nom']?></p>
+                    <p><?=$artistes['prenom']?></p>
                 </div>
 
+            <?php } ?>
             </div>      
         </li>
         

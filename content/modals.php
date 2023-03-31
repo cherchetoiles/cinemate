@@ -80,6 +80,5 @@ $categorys= $result;
   <label class="modal-action" for=""></label>
 <!--/MODALE CONNEXION/CONTACT-->
 
-<!-- MODAL ADMIN NEW USER -->
 
 

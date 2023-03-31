@@ -87,13 +87,38 @@ session_start();
 <?php
 require ('traitement/bdd.php');
 $id_film = $_GET['id_film'];
-$req = 'SELECT*FROM film WHERE id_film = ?';
-$req = $db->prepare($req);
+$sql = 'SELECT*FROM film WHERE id_film = ?';
+$req = $db->prepare($sql);
 $req->execute([$id_film]);
 $result = $req->fetch();
 $film = $result;
 
+$sql = 'SELECT*FROM role WHERE id_role = ?';
+$req = $db->prepare($sql);
+if (isset($_SESSION['id_role'])){
+    $req->execute([$_SESSION['id_role']]);
+}
+$result = $req->fetch();
+$role = $result;
 
+
+
+$sql = "SELECT * FROM `classifier` c JOIN `category` cat ON c.id_category = cat.id_category WHERE  $id_film = ?";
+$req = $db->prepare($sql);
+$req->execute([$id_film]);
+$result = $req->fetch();
+$category = $result;
+
+$sql = "SELECT *, GROUP_CONCAT(a.id_artiste) FROM `jouer` j JOIN `artiste` a ON j.id_artiste = a.id_artiste WHERE  $id_film = ? GROUP BY(a.id_artiste)";
+$req = $db->prepare($sql);
+$req->execute([$id_film]);
+$result = $req->fetch();
+$artistes = $result;
+
+$sql = "SELECT * FROM `preferer` p JOIN `user` u ON u.id_user = p.id_user WHERE  $id_film = ?";
+$req = $db->prepare($sql);
+$req->execute([$id_film]);
+$favori = $req;
 ?>
 <!-- /REQUEST BDD -->
 <div class="w-full h-screen flex flex-col items-center">
@@ -107,35 +132,57 @@ $film = $result;
     </div>
     <!--/RETOUR-->
 
+    <?php 
+            if (isset($_SESSION['id_user']))
+            { ?>
     <!--FAVORITE-->
-    <div class="z-2 absolute top-6 right-8">
-            <a href="traitement/favoris.php?id_film=<?= $id_film ?>">
-                <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.1666 30.6667H5.74996" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M17.25 21.0833H5.75" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M31.6059 31.2575L32.0509 30.6537L32.0509 30.6537L31.6059 31.2575ZM33.5416 19.3701L33.0057 19.8948C33.1468 20.0389 33.34 20.1201 33.5416 20.1201C33.7433 20.1201 33.9364 20.0389 34.0775 19.8948L33.5416 19.3701ZM35.4774 31.2575L35.9223 31.8612L35.4774 31.2575ZM33.5416 32.2198L33.5416 31.4698H33.5416L33.5416 32.2198ZM32.0509 30.6537C30.7992 29.7312 29.1754 28.4068 27.8719 26.9182C26.5452 25.4029 25.6666 23.8482 25.6666 22.4533H24.1666C24.1666 24.4176 25.3612 26.3278 26.7434 27.9063C28.1488 29.5114 29.8697 30.9095 31.1609 31.8612L32.0509 30.6537ZM25.6666 22.4533C25.6666 20.1185 26.7284 18.6927 28.0364 18.2036C29.3528 17.7113 31.2086 18.0594 33.0057 19.8948L34.0775 18.8454C31.9935 16.717 29.5368 16.0411 27.511 16.7986C25.4768 17.5592 24.1666 19.6568 24.1666 22.4533H25.6666ZM35.9223 31.8612C37.2136 30.9096 38.9344 29.5115 40.3399 27.9064C41.722 26.3278 42.9166 24.4176 42.9166 22.4533H41.4166C41.4166 23.8482 40.5381 25.403 39.2113 26.9182C37.9079 28.4069 36.2841 29.7313 35.0324 30.6537L35.9223 31.8612ZM42.9166 22.4533C42.9166 19.6568 41.6064 17.5592 39.5722 16.7986C37.5464 16.0411 35.0897 16.717 33.0057 18.8454L34.0775 19.8948C35.8746 18.0594 37.7305 17.7113 39.0469 18.2036C40.3549 18.6926 41.4166 20.1185 41.4166 22.4533H42.9166ZM31.1609 31.8612C31.969 32.4567 32.6155 32.9698 33.5416 32.9698L33.5416 31.4698C33.2078 31.4698 32.9838 31.3413 32.0509 30.6537L31.1609 31.8612ZM35.0324 30.6537C34.0994 31.3413 33.8755 31.4698 33.5416 31.4698L33.5416 32.9698C34.4677 32.9698 35.1143 32.4567 35.9223 31.8612L35.0324 30.6537Z" fill="white"/>
-                    <path d="M38.3334 11.5L18.2084 11.5M5.75004 11.5H10.0625" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-            </a>    
-
+   <div class="z-2 absolute top-6 right-8">
+    <?php if($favori->rowCount() > 0){ ?>
+     <!-- IF HAVE IN FAVORITE LIST -->
+                <a href="traitement/unfav.php?id_film=<?= $id_film ?>">
+                    <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.1666 30.6667H5.74996" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M26.8334 28.75L33.5417 34.5L40.25 28.75" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M38.3334 21.0833L5.75004 21.0833" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M5.75 11.5L25.875 11.5M38.3333 11.5H34.0208" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>         
+                </a>  
+    <?php } else{?>
+              <!-- FOR MAKE IN FAVORITE LIST -->
+                <a href="traitement/favoris.php?id_film=<?= $id_film ?>">
+                    <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.1666 30.6667H5.74996" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M17.25 21.0833H5.75" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M31.6059 31.2575L32.0509 30.6537L32.0509 30.6537L31.6059 31.2575ZM33.5416 19.3701L33.0057 19.8948C33.1468 20.0389 33.34 20.1201 33.5416 20.1201C33.7433 20.1201 33.9364 20.0389 34.0775 19.8948L33.5416 19.3701ZM35.4774 31.2575L35.9223 31.8612L35.4774 31.2575ZM33.5416 32.2198L33.5416 31.4698H33.5416L33.5416 32.2198ZM32.0509 30.6537C30.7992 29.7312 29.1754 28.4068 27.8719 26.9182C26.5452 25.4029 25.6666 23.8482 25.6666 22.4533H24.1666C24.1666 24.4176 25.3612 26.3278 26.7434 27.9063C28.1488 29.5114 29.8697 30.9095 31.1609 31.8612L32.0509 30.6537ZM25.6666 22.4533C25.6666 20.1185 26.7284 18.6927 28.0364 18.2036C29.3528 17.7113 31.2086 18.0594 33.0057 19.8948L34.0775 18.8454C31.9935 16.717 29.5368 16.0411 27.511 16.7986C25.4768 17.5592 24.1666 19.6568 24.1666 22.4533H25.6666ZM35.9223 31.8612C37.2136 30.9096 38.9344 29.5115 40.3399 27.9064C41.722 26.3278 42.9166 24.4176 42.9166 22.4533H41.4166C41.4166 23.8482 40.5381 25.403 39.2113 26.9182C37.9079 28.4069 36.2841 29.7313 35.0324 30.6537L35.9223 31.8612ZM42.9166 22.4533C42.9166 19.6568 41.6064 17.5592 39.5722 16.7986C37.5464 16.0411 35.0897 16.717 33.0057 18.8454L34.0775 19.8948C35.8746 18.0594 37.7305 17.7113 39.0469 18.2036C40.3549 18.6926 41.4166 20.1185 41.4166 22.4533H42.9166ZM31.1609 31.8612C31.969 32.4567 32.6155 32.9698 33.5416 32.9698L33.5416 31.4698C33.2078 31.4698 32.9838 31.3413 32.0509 30.6537L31.1609 31.8612ZM35.0324 30.6537C34.0994 31.3413 33.8755 31.4698 33.5416 31.4698L33.5416 32.9698C34.4677 32.9698 35.1143 32.4567 35.9223 31.8612L35.0324 30.6537Z" fill="white"/>
+                        <path d="M38.3334 11.5L18.2084 11.5M5.75004 11.5H10.0625" stroke="#C684D8" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </a> 
+    <?php } ?>   
     </div>
-
     <!--/FAVORITE-->
+    <?php } else{ }?>
 
     <!-- HEADER METTRE UNE VIDEO EN HEADER TROP DUR-->
-    <div class="flex w-full h-2/3 bg-[url('<?=$film['bg_img'] ?>')] bg-cover items-center justify-end flex-col">
-        <p class="text-base text-white/80 capitalize italic"><?='catégorie'?>,<?=$film['first_date'] ?></p>
+    <div class="flex w-full pt-20 h-2/3 bg-[url('<?=$film['bg_img'] ?>')] bg-cover items-center text-center justify-end flex-col">
+        <p class="text-base text-white/80 capitalize italic"><?=$category['name_category'] ?>,<?=($film['first_date'])?></p>
         <h1 class="text-4xl font-bold text-white uppercase"><?=$film['title']?></h1>
     </div>
     <!--/HEADER -->
 
 <!-- BUTTON+CREATOR -->
     <section class="text-white flex flex-col items-center text-2xl font-body mt-8">
-        <a href="https://www.yout-ube.com/watch?v=msEkTp69pTU" class="justify-center mb-1 py-2.5 px-6 w-56 rounded-md bg-mauve hover:bg-white hover:text-mauve text-2xl flex justify-center font-sans font-semibold ">Regarder</a>
+        <div class="flex flex-col md:flex-row">
+            <a href="https://www.yout-ube.com/watch?v=<?=($film['iframe'])?>" class="justify-center mb-1 mx-1 py-2.5 px-6 w-56 rounded-md bg-mauve hover:bg-white hover:text-mauve text-2xl flex justify-center font-sans font-semibold ">Regarder</a>
+            <?php if (isset($_SESSION['id_role']))
+            { if($_SESSION['id_role']== 1){; ?>
+            <a href="#" class="justify-center mb-1 mx-1 py-2.5 px-6 w-56 rounded-md bg-white text-mauve hover:bg-mauve hover:text-white text-2xl flex justify-center font-sans font-semibold ">Modifier</a>
+            <?php }}?>
+        </div>
         <div class="mt-2 font-light flex flex-col text-center">
             <p>Créer par : <strong><?='Créateur'?></strong></p>
             <p>Réaliser par : <strong><?='Réalisateur'?></strong></p>   
         </div>
+
     </section>
 <!-- /BUTTON+CREATOR -->
 
@@ -146,6 +193,7 @@ $film = $result;
 <!--SAME SEARCH-->
 <?php include('content/slider/sliderreco.php')?>
 <!--/SAME SEARCH-->
+
 </div>
 </body>
 </html>

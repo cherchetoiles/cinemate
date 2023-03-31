@@ -1,6 +1,7 @@
 <?php
 session_start();
-if(isset($_SESSION['id_user'])){
+if(isset($_SESSION['id_role']))
+    { if($_SESSION['id_role']== 1){; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +105,7 @@ if(isset($_SESSION['id_user'])){
             </div>
         </a>
         
-        <a href="#">
+        <a href="crudfilm.php">
             <div class="font-normal text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5 mt-0.5" >
                 
                 <div class="flex items-center"> 
@@ -127,7 +128,7 @@ if(isset($_SESSION['id_user'])){
             
             </div>
         </a>
-        <a href="#">
+        <a href="crudartiste.php">
             <div class="font-ligth
              text-3xl w-[22rem] py-4 text-white flex bg-violettrans/50 rounded-md justify-between items-center px-5 mt-0.5" >
                 
@@ -164,7 +165,11 @@ if(isset($_SESSION['id_user'])){
 <?php include('content/modals.php')?>
 <!--MODAL-->
 
-<?php }
+<?php 
+    } else{
+        header('Location:index.php');
+    }}
+
 else{
-    header(Location:"login.php");
+    header('Location:login.php');
 } ?>

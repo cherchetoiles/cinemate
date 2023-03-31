@@ -14,6 +14,14 @@ if (isset($_SESSION['id_user'])){
 $result = $req->fetch();
 $user = $result;
 
+$req = 'SELECT*FROM role WHERE id_role = ?';
+$req = $db->prepare($req);
+if (isset($_SESSION['id_role'])){
+    $req->execute([$_SESSION['id_role']]);
+}
+$result = $req->fetch();
+$role = $result;
+
 ?>
  <!-- BDD -->
 
@@ -99,14 +107,15 @@ $user = $result;
         </div>
 <!--ADMIN-->
         <?php if (isset($_SESSION['id_role']))
-            { ?>
+            { if($_SESSION['id_role']== 1){; 
+        ?>
         <a href="admin.php">
         <div class=" bg-violettrans/50 h-auto w-auto py-1 ml-0.5 px-6 rounded-sm text-white font-sans font-bold text-sm ">
         <p class="opacity-100">Admin</p>
         </div>
         </a>
     </div>
-               <?php } ?>
+               <?php } } ?>
 
 
 </div>

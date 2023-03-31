@@ -85,6 +85,8 @@
         <?php include('content/ligncenter.php')?>
     </div>
     <!-- /TITLE -->
+
+    <?php include('form/contact.php') ?>
 </div>
 </body>
 </html>
